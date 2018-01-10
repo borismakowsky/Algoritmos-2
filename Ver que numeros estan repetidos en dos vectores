@@ -1,0 +1,110 @@
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#define MAX 50
+
+using namespace std;
+
+void cargar (int vec[],int n);
+void mostrar (int vec[],int n);
+bool ordenado (int vec[],int n);
+void ordenadoresp (int vec[],int n);
+void intercambiar(int vec[],int n);
+void existe (int vec[],int vec2[],int n,int n2,int vec3[MAX]);
+
+
+void main()
+{
+	int n,vec[MAX],vec2[MAX],n2,vec3[MAX];
+	cout<<"INTRODUCIR EL TAMAÑO DEL VECTOR"<<endl;
+	cin>>n;
+	cargar (vec,n);
+	cout<<"INTRODUCIR EL TAMAÑO DEL VECTOR 2"<<endl;
+	cin>>n2;
+	cargar (vec2,n2);
+	existe(vec,vec2,n,n2,vec3);
+
+	getch();
+}
+
+void cargar (int vec[],int n)
+{
+	int i;
+	for (i=0;i<n;i++)
+	{
+		cout<<"vec["<<i<<"]=";
+		cin>>vec[i];
+	}
+}
+void mostrar (int vec[],int n)
+{
+	int i;
+	for(i=0;i<n;i++)
+	{
+		cout<<"vec["<<i<<"]="<<vec[i]<<endl;
+	}
+}
+bool ordenado (int vec[],int n)
+{
+	int i=0;
+	while(i<n-1)
+	{
+		if(vec[i]>vec[i+1])
+			return false;
+		i++;
+	}
+
+	return true;
+}
+
+void ordenadoresp (int vec[],int n)
+{
+	if(ordenado(vec,n))
+	{
+		cout<<"ESTA ORDENADO"<<endl;
+	}
+	else
+		cout<<"NO ESTA ORDENADO"<<endl;
+}
+void intercambiar(int vec[],int n)
+{
+	int i=0;
+	int aux;
+	int j=n-1;
+	while(i<j)
+	{
+		aux=vec[i];
+		vec[i]=vec[j];
+		vec[j]=aux;
+		i++;
+		j--;
+	}
+	mostrar(vec,n);
+}
+void existe (int vec[],int vec2[],int n,int n2,int vec3[MAX])
+{
+	int i=0;
+	int j=0;
+	int k=0;
+	int x;
+	while (i<n)
+	{
+
+		while (j<n2)
+		{
+			x=vec[i];
+			if(x==vec2[j])
+			{
+				vec3[k]=x;
+				k++;
+			}
+			j++;
+		}
+		i++;
+		j=0;
+
+	}
+	cout<<"--------------------------"<<endl;
+	mostrar(vec3,k);
+}
