@@ -1,0 +1,192 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#define MAX 50
+
+using namespace std;
+
+void cargar (int vec[],int n);
+void mostrar (int vec[],int n);
+bool ordenado (int vec[],int n);
+void ordenadoresp (int vec[],int n);
+void intercambiar(int vec[],int n);
+void existe (int vec[],int vec2[],int n,int n2,int vec3[MAX]);
+void rotacion (int vec[],int n,int m);
+void eliminarmay (int vec[],int n);
+void mayorcercano (int vec[],int n,int m);
+
+
+
+
+void main()
+{
+	int n,vec[MAX],vec2[MAX],n2,vec3[MAX],m;
+	cout<<"INTRODUCIR EL TAMAÑO DEL VECTOR"<<endl;
+	cin>>n;
+	cargar (vec,n);
+	cout<<"Introducir de que numero hallar el mayor cercano"<<endl;
+	cin>>m;
+	mayorcercano(vec,n,m);
+
+
+	getch();
+}
+
+void cargar (int vec[],int n)
+{
+	int i;
+	for (i=0;i<n;i++)
+	{
+		cout<<"vec["<<i<<"]=";
+		cin>>vec[i];
+	}
+}
+void mostrar (int vec[],int n)
+{
+	int i;
+	for(i=0;i<n;i++)
+	{
+		cout<<"vec["<<i<<"]="<<vec[i]<<endl;
+	}
+}
+bool ordenado (int vec[],int n)
+{
+	int i=0;
+	while(i<n-1)
+	{
+		if(vec[i]>vec[i+1])
+			return false;
+		i++;
+	}
+
+	return true;
+}
+
+void ordenadoresp (int vec[],int n)
+{
+	if(ordenado(vec,n))
+	{
+		cout<<"ESTA ORDENADO"<<endl;
+	}
+	else
+		cout<<"NO ESTA ORDENADO"<<endl;
+}
+void intercambiar(int vec[],int n)
+{
+	int i=0;
+	int aux;
+	int j=n-1;
+	while(i<j)
+	{
+		aux=vec[i];
+		vec[i]=vec[j];
+		vec[j]=aux;
+		i++;
+		j--;
+	}
+	mostrar(vec,n);
+}
+void existe (int vec[],int vec2[],int n,int n2,int vec3[MAX])
+{
+	int i=0;
+	int j=0;
+	int k=0;
+	int x;
+	while (i<n)
+	{
+
+		while (j<n2)
+		{
+			x=vec[i];
+			if(x==vec2[j])
+			{
+				vec3[k]=x;
+				k++;
+			}
+			j++;
+		}
+		i++;
+		j=0;
+
+	}
+	cout<<"--------------------------"<<endl;
+	mostrar(vec3,k);
+}
+void rotacion (int vec[],int n,int m)
+{
+	int i=0,aux,j=0;
+	while(i<m)
+	{
+		aux=vec[0];
+
+		while(j<n-1)
+		{
+			vec[j]=vec[j+1];
+			j++;
+		}
+		vec[n-1]=aux;
+	i++;
+	j=0;
+	}
+	mostrar(vec,n);
+
+}
+void eliminarmay (int vec[],int n)
+{
+	int i=0,may=vec[0],pos;
+	pos=0;
+	while(i<n)
+	{
+		if(vec[i]>may)
+		{
+			may=vec[i];
+			pos=i;
+
+		}
+		i++;
+
+	}
+	if(pos!=n-1)
+	{
+
+	while (pos<n-1)
+	{
+		vec[pos]=vec[pos+1];
+		pos++;
+	}
+	n=n-1;
+	}
+	else
+	{
+		n=n-1;
+	}
+
+	mostrar(vec,n);
+}
+
+void mayorcercano (int vec[],int n,int m)
+{
+	int i=0;
+	int vec2[MAX],menor;
+	int j=0;
+	while(i<n)
+	{
+		if(vec[i]>m)
+		{
+			vec2[j]=vec[i];
+			j++;
+		}
+		i++;
+	}
+	menor=vec2[0];
+	i=0;
+	while(i<j)
+	{
+		if(menor>vec2[i])
+			menor=vec2[i];
+		else
+			menor=menor;
+		i++;
+	}
+	cout<<"El menor sera: "<<menor<<endl;
+}
