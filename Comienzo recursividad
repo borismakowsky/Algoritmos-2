@@ -1,0 +1,105 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+float factorial (float n);
+int suma (int n);
+int sumapares (int n);
+int contarpares (int n);
+int sumacuadrados (int n);
+float sumaserie (float n);
+int sumapotencia (int x,int y);
+
+void main()
+{
+	int n,f,x,y;
+	float s;
+	cout<<"iNGRESE LA BASE"<<endl;
+	cin>>x;
+	cout<<"iNGRESE EL EXPONENTE"<<endl;
+	cin>>y;
+	s=sumapotencia(x,y);
+	cout<<s;
+
+	getch();
+}
+float factorial (float n)
+{
+	if(n==0)
+		return 1;
+	else
+	{
+		int x=factorial(n-1);
+		return x*n;
+	}
+}
+int suma (int n)
+{
+	if(n==0)
+		return 0;
+	else
+	{
+		int s=suma(n-1);
+		return s+n;
+	}
+}
+int sumapares (int n)
+{
+	if(n==0)
+		return 0;
+	else
+	{
+		int x=sumapares(n-1);
+		if(n%2==0)
+			return x+n;
+		else
+			return x;
+	}
+}
+int contarpares (int n)
+{
+	int c;
+	if(n==0)
+		return 0;
+	else
+	{
+		int x=contarpares(n-1);
+		if(n%2==0)
+			return x+1;
+		else
+			return x;
+	}
+}
+int sumacuadrados (int n)
+{
+	if(n==0)
+		return 0;
+	else
+	{
+		int s=sumacuadrados(n-1);
+		return s+(n*n);
+	}
+}
+float sumaserie (float n)
+{
+	if(n==0)
+		return 0;
+	else
+	{
+		float s=sumaserie(n-1);
+		return s+(factorial(n)/powf(n,2));
+	}
+}
+int sumapotencia (int x,int y)
+{
+	if(y==0)
+		return 1;
+	else
+	{
+		int p=sumapotencia(x,(y-1));
+		return p*x;
+	}
+}
