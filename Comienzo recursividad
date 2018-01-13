@@ -12,18 +12,22 @@ int contarpares (int n);
 int sumacuadrados (int n);
 float sumaserie (float n);
 int sumapotencia (int x,int y);
+void naturales(int n);
+void pares(int n);
+int sumadigitos (int n);
+void digitos (int n);
+int digitospares(int n);
+int sumapares2 (int n);
+int digitomayor(int n);
 
 void main()
 {
 	int n,f,x,y;
-	float s;
-	cout<<"iNGRESE LA BASE"<<endl;
-	cin>>x;
-	cout<<"iNGRESE EL EXPONENTE"<<endl;
-	cin>>y;
-	s=sumapotencia(x,y);
+	int s;
+	cout<<"Ingrese el valor de N: "<<endl;
+	cin>>n;
+	s=digitomayor(n);
 	cout<<s;
-
 	getch();
 }
 float factorial (float n)
@@ -103,3 +107,111 @@ int sumapotencia (int x,int y)
 		return p*x;
 	}
 }
+
+void naturales(int n)
+{
+	if (n==0)
+	{
+
+	}
+	else
+	{
+		cout<<n<<"     ";
+		naturales(n-1);
+
+	}
+}
+void pares(int n)
+{
+	if (n==0)
+	{
+
+
+	}
+	else
+	{
+		pares(n-1);
+		if(n%2==0)
+
+
+			cout<<n<<"     ";
+
+
+	}
+}
+//Manejo de digitos
+
+
+int sumadigitos (int n)
+{
+	if(n<10)
+		return n;
+	else
+	{
+		int s=sumadigitos(n/10);
+		return s+(n%10);
+
+	}
+
+}
+void digitos (int n)
+{
+	if(n<10)
+		cout<<n;
+	else
+	{
+		cout<<n%10;
+		digitos(n/10);
+	}
+}
+int digitospares(int n)
+{
+	if(n<10)
+	{
+		if(n%2==0)
+			return 1;
+		else
+			return 0;
+	}
+	else
+	{
+		int x=digitospares(n/10);
+		if (n%2==0)
+			return x+1;
+		else
+			return x;
+	}
+}
+int sumapares2 (int n)
+{
+	if(n<10)
+	{
+		if(n%2==0)
+			return n;
+		else
+			return 0;
+	}
+	else
+	{
+		int x=sumapares2(n/10);
+		if ((n%10)%2==0)
+			return x+(n%10);
+		else
+			return x;
+	}
+}
+int digitomayor(int n)
+{
+	if(n<10)
+		return n;
+	else
+	{
+		int x=digitomayor(n/10);
+			if((n%10)>x)
+				return (n%10);
+			else
+				return x;
+	}
+}
+
+	
