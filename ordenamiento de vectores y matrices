@@ -1,0 +1,354 @@
+VECTORES
+QUICK SORT
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define largo 100
+using namespace std;
+
+void leeCadena(int cant,int n[])
+{
+    int i;
+    for(i=0;i<cant;i++)
+    {
+        cout<<"Ingresa numero "<<i+1<<": ";
+        cin>>n[i];
+    }
+     
+}
+ 
+void muestraCadena(int cant,int n[])
+{
+    int i;
+    for(i=0;i<cant;i++)
+    {
+        cout<<n[i]<<endl;
+    }
+}
+void quicksort(int A[],int izq, int der )
+{ 
+int i, j, x , aux; 
+i = izq; 
+j = der; 
+x = A[ (izq + der) /2 ]; 
+    do{ 
+        while( (A[i] < x) && (j <= der) )
+        { 
+            i++;
+        } 
+ 
+        while( (x < A[j]) && (j > izq) )
+        { 
+            j--;
+        } 
+ 
+        if( i <= j )
+        { 
+            aux = A[i]; A[i] = A[j]; A[j] = aux; 
+            i++;  j--; 
+        }
+         
+    }while( i <= j ); 
+ 
+    if( izq < j ) 
+        quicksort( A, izq, j ); 
+    if( i < der ) 
+        quicksort( A, i, der ); 
+}
+ 
+void main () 
+{
+    int A[largo],n;
+    do{
+    cout<<"Cantidad de numeros a ingresar: ";cin>>n;
+        if(n<=0||n>largo)
+            cout<<"Debe ingresar un valor  > a 0 y < a "<<largo<<endl;
+    }while(n<=0||n>largo);
+    leeCadena(n,A);
+    quicksort(A,0,n-1);
+    muestraCadena(n,A);
+   
+	getch();
+}
+
+
+SHELL
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define largo 100
+using namespace std;
+
+void leeCadena(int cant,int n[])
+{
+    int i;
+    for(i=0;i<cant;i++)
+    {
+        cout<<"Ingresa numero "<<i+1<<": ";
+        cin>>n[i];
+    }
+     
+}
+ 
+void muestraCadena(int cant,int n[])
+{
+    int i;
+    for(i=0;i<cant;i++)
+    {
+        cout<<n[i]<<endl;
+    }
+}
+
+void ordenShell(int A[],int n)
+{
+     
+  int i, j, inc, temp;
+  
+  for(inc = 1 ; inc<n;inc=inc*3+1);
+   
+      while (inc > 0)
+      {
+          for (i=inc; i < n; i++)
+          {
+                j = i;
+                temp = A[i];
+                while ((j >= inc) && (A[j-inc] > temp))
+                {
+                    A[j] = A[j - inc];
+                    j = j - inc;
+                }
+       
+                A[j] = temp;
+          }
+         
+          inc/= 2;
+      }
+}
+  
+  
+void main () 
+{
+    int A[largo],n;
+    do{
+    cout<<"Cantidad de numeros a ingresar: ";cin>>n;
+        if(n<=0||n>largo)
+            cout<<"Debe ingresar un valor  > a 0 y < a "<<largo<<endl;
+    }while(n<=0||n>largo);
+ 
+    leeCadena(n,A);
+    ordenShell(A,n);
+    muestraCadena(n,A);
+   
+}
+
+MATRICES
+SHELL SORT
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 100
+using namespace std;
+
+void cargar_matriz(int A[MAX][MAX], int fil, int col)
+{	
+	int i,j;
+	for(i=0;i<fil;i++)
+		for(j=0;j<col;j++)
+			{cout<<"ingrese ["<<i<<"]["<<j<<"]=";
+			cin>>A[i][j];
+			}
+
+}
+void mostrar_matriz(int A[MAX][MAX], int fil, int col)
+{	
+	int i,j;
+	for(i=0;i<fil;i++)
+		{for(j=0;j<col;j++)
+			{
+			cout<<A[i][j]<<"\t";
+			}
+		cout<<endl;
+		}
+}
+
+void ordenShell(int A[],int n)
+{
+     
+  int i, j, inc, temp;
+  
+  for(inc = 1 ; inc<n;inc=inc*3+1);
+   
+      while (inc > 0)
+      {
+          for (i=inc; i < n; i++)
+          {
+                j = i;
+                temp = A[i];
+                while ((j >= inc) && (A[j-inc] > temp))
+                {
+                    A[j] = A[j - inc];
+                    j = j - inc;
+                }
+       
+                A[j] = temp;
+          }
+         
+          inc/= 2;
+      }
+}
+
+void ordenar2 (int vec[],int k,int fil, int col)
+{
+	int i=0,j=0,h=0, M[MAX][MAX];
+	while (h<k)
+	{
+		while (j<col)
+		{
+			M[i][j]=vec[h];
+			h++;
+			j++;
+		}
+		j=0;
+		i++;
+	}
+	cout<<endl;
+	mostrar_matriz(M,fil,col);
+	getch();
+}
+void ordenar(int fil,int col,int A[MAX][MAX])
+{
+	int i=0,j=0,k=0,vec[MAX];
+	while (i<fil)
+	{
+		while (j<col)
+   		{
+			vec[k]=A[i][j];
+			j++;
+			k++;
+		}
+		cout<<endl;
+		i++;
+		j=0;
+	}
+	ordenShell(vec, k);
+	ordenar2(vec, k,fil,col);
+
+}
+
+void main () 
+{
+    int A[MAX][MAX],fil,col,vec[MAX];
+	cout<<"Introducir el numero de filas"<<endl;
+	cin>>fil;
+	cout<<"Introducir el numero de columnas"<<endl;
+	cin>>col;
+    cargar_matriz(A,fil,col);
+	cout<<endl;
+    mostrar_matriz(A,fil,col);
+	cout<<endl;
+	ordenar(fil,col,A);
+	getch();
+}
+
+
+Insercion directa
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 100
+using namespace std;
+
+void cargar_matriz(int A[MAX][MAX], int fil, int col)
+{	
+	int i,j;
+	for(i=0;i<fil;i++)
+		for(j=0;j<col;j++)
+			{cout<<"ingrese ["<<i<<"]["<<j<<"]=";
+			cin>>A[i][j];
+			}
+
+}
+void mostrar_matriz(int A[MAX][MAX], int fil, int col)
+{	
+	int i,j;
+	for(i=0;i<fil;i++)
+		{for(j=0;j<col;j++)
+			{
+			cout<<A[i][j]<<"\t";
+			}
+		cout<<endl;
+		}
+}
+
+void insercionDirecta(int vec[],int k)
+{
+	int i,j,v;
+    for (i = 1; i < k; i++)
+    {
+        v = vec[i];
+        j = i - 1;
+        while (j >= 0 && vec[j] > v)
+        {
+            vec[j + 1] = vec[j];
+            j--;
+        }
+        vec[j + 1] = v;
+    }
+
+}
+
+void ordenar2 (int vec[],int k,int fil, int col)
+{
+	int i=0,j=0,h=0, M[MAX][MAX];
+	while (h<k)
+	{
+		while (j<col)
+		{
+			M[i][j]=vec[h];
+			h++;
+			j++;
+		}
+		j=0;
+		i++;
+	}
+	cout<<endl;
+	mostrar_matriz(M,fil,col);
+	getch();
+}
+void ordenar(int fil,int col,int A[MAX][MAX])
+{
+	int i=0,j=0,k=0,vec[MAX];
+	while (i<fil)
+	{
+		while (j<col)
+   		{
+			vec[k]=A[i][j];
+			j++;
+			k++;
+		}
+		cout<<endl;
+		i++;
+		j=0;
+	}
+	insercionDirecta(vec, k);
+	ordenar2(vec, k,fil,col);
+
+}
+
+void main () 
+{
+    int A[MAX][MAX],fil,col,vec[MAX];
+	cout<<"Introducir el numero de filas"<<endl;
+	cin>>fil;
+	cout<<"Introducir el numero de columnas"<<endl;
+	cin>>col;
+    cargar_matriz(A,fil,col);
+	cout<<endl;
+    mostrar_matriz(A,fil,col);
+	cout<<endl;
+	ordenar(fil,col,A);
+	getch();
+}
