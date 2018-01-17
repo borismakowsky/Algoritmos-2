@@ -1,0 +1,64 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+using namespace std;
+
+void cargar(int v[], int n)
+{
+ int x; 
+ for(int i=0;i<n;i++)
+ {
+	 cout<<"Elemento:";
+	 cin>>x;
+	 v[i]=x;
+ }
+ cout<<endl;
+}
+
+void mostrar(int v[], int n)
+{
+ for(int i=0;i<n;i++)
+	 cout<<v[i];
+
+ cout<<endl;
+}
+bool ordenado(int v[],int n)
+{
+	if(n==1)
+
+		return true;
+	else
+	{
+		bool x=ordenado(v,n-1);
+
+		if(v[n-1]>=v[n-2])
+		{
+			if(x==true)
+				return true;
+			else
+				return false;
+		}
+		else 
+			return false;
+
+
+
+	}
+}
+
+
+void main()
+{
+	int n,pos,x,s;
+	int v[50];
+	cout<<"Dimension del vector:";
+	cin>>n;
+	cargar(v,n);
+	cout<<"----------------------------------"<<endl;
+	if(ordenado(v,n))
+		cout<<"Esta ordenado"<<endl;
+	else
+		cout<<"No esta ordenado"<<endl;
+
+	getch();
+}
