@@ -1,0 +1,76 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+
+class fecha
+{
+private:
+	int dia;
+	int mes;
+	int anho;
+public:
+	fecha()
+	{
+		dia=0;
+		mes=0;
+		anho=0;
+	}
+	void setDia(int d)
+	{
+	
+		dia=d;
+	}
+	void setMes(int m)
+	{
+		mes=m;
+	
+	}
+	void setAnho(int a)
+	{
+		anho=a;
+	}
+	int getDia()
+	{
+	
+		return dia;
+	}
+	int getMes()
+	{
+		return mes;
+	
+	}
+	int getAnho()
+	{
+		return anho;
+	}
+	void leerfecha()
+	{
+		int d,m,a;
+		cout<<"Dia: "<<endl;
+		cin>>d;  dia=d;
+		cout<<"Mes: "<<endl;
+		cin>>m;   mes=m;
+		cout<<"ANHO :"<<endl;
+		cin>>a;   anho=a;
+	}
+	void mostrarfecha()
+	{
+		cout<<dia<<" / "<<mes<<" / "<<anho;
+	}
+
+};
+
+
+void main()
+{
+	fecha f1;
+	f1.leerfecha();
+	cout<<endl;
+	f1.mostrarfecha();
+
+	getch();
+}
+
+
