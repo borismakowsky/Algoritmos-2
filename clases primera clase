@@ -1,0 +1,138 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+#include "math.h"
+using namespace std;
+
+void cargar(int v[], int n)
+{
+ int x; 
+ for(int i=0;i<n;i++)
+ {
+	 cout<<"Elemento:";
+	 cin>>x;
+	 v[i]=x;
+ }
+ cout<<endl;
+}
+
+void mostrar(int v[], int n)
+{
+ for(int i=0;i<n;i++)
+	 cout<<v[i];
+
+ cout<<endl;
+}
+bool ordenado(int v[],int n)
+{
+	if(n==1)
+
+		return true;
+	else
+	{
+		bool x=ordenado(v,n-1);
+
+		if(v[n-1]>=v[n-2])
+		{
+			if(x==true)
+				return true;
+			else
+				return false;
+		}
+		else 
+			return false;
+
+
+
+	}
+}
+
+class punto
+{
+private:
+	int x;
+	int y;
+public:
+	punto()
+	{
+		
+	x=0;y=0;}
+	void setx(int a)
+	{
+		x=a;
+	}
+	void sety(int b)
+	{y=b;
+	}
+	int getx()
+	{return x;}
+	int gety ()
+	{
+		return y;
+	}
+
+	void mostrarcuadrante()
+	{
+		if(x>0 &&  y>0)
+			cout<<"Es primer cuadrante"<<endl;
+		else
+		{
+			if(x<0 && y>0)
+				cout<<"Es segundo cuadrante"<<endl;
+			else
+			{
+				if(x<0 && y<0)
+					cout<<"Es tercer cuadrante"<<endl;
+				else
+				{
+					if(x>0 && y<0)
+						cout<<"Es cuarto cuadrante"<<endl;
+					else 
+					{
+						if(x==0 && y==0)
+							cout<<"Esta en el origen"<<endl;
+					}
+				}
+			}
+		}
+	}
+	void distanciaorigen()
+	{
+		float c;
+		c=sqrt(powf(x,2)+powf(y,2));
+		cout<<c;
+	}
+	float distancia (punto p2)
+	{
+		float a=(p2.getx()-getx());
+		float b=(p2.gety()-gety());
+		return sqrt((a*a)+(b*b));
+	}
+
+};
+
+void main()
+{
+	punto p1;
+	punto p2;
+	int a1,a2,b1,b2;
+	cout<<"Punto 1";
+	cout<<"x=";
+	cin>>a1;
+	p1.setx(a1);
+	cout<<"y=";
+	cin>>b1;
+	p1.sety(b1);
+	cout<<"Punto 2";
+	cout<<"x=";
+	cin>>a2;
+	p1.setx(a2);
+	cout<<"y=";
+	cin>>b2;
+	p2.sety(b2);
+	p1.mostrarcuadrante();
+	p1.distanciaorigen();
+
+	getch();
+
+}
