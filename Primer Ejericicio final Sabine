@@ -58,26 +58,24 @@ public:
 	{
 		cout<<mt<<" m "<<cm<<" cm "<<mm<<" mm ";
 	}
-	void distanciamayor (distancia D1)
+	 distancia mayor (distancia D2)
 	{
 		int mt1,cm1,mm1,mt2,cm2,mm2,may,m1,m2;
-		mt1=D1.getMt();
-		cm1=D1.getCm();
-		mm1=D1.getMm();
-		mt2=getMt();
-		cm2=getCm();
-		mm2=getMm();
+		mt1=getMt();
+		cm1=getCm();
+		mm1=getMm();
+		mt2=D2.getMt();
+		cm2=D2.getCm();
+		mm2=D2.getMm();
 
 		m1=(mt1*1000)+(cm1*10)+mm1;
 		m2=(mt2*1000)+(cm2*10)+mm2;
-		if(m1>m2)
+		if(m1<m2)
 		{
-			cout<<"La distancia mayor es: "<<endl;
-			D1.mostrardistancia();
+			return D2; 
 		}
 		else
-			cout<<"La distancia mayor es: "<<endl;
-			mostrardistancia();
+			return *this;
 	
 	}
 	void aumentardistancia(int n)
@@ -97,7 +95,7 @@ public:
 	void main()
 	{
 		int n;
-		distancia D1,D2;
+		distancia D1,D2,D3;
 		D1.leerdistancia();
 		cout<<endl;
 		D1.mostrardistancia();
@@ -106,7 +104,9 @@ public:
 		cout<<endl;
 		D2.mostrardistancia();
 		cout<<endl;
-		D2.distanciamayor(D1);
+		D3=D2.mayor(D1);
+		cout<<"La mayor distancia sera: "<<endl;
+		D3.mostrardistancia();
 		cout<<"Ingrese la cantidad de mm que desea aumentar a la primera distancia: "<<endl;
 		cin>>n;
 		D1.aumentardistancia(n);
