@@ -1,0 +1,116 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+
+class distancia
+{
+private:
+	int mt;
+	int cm;
+	int mm;
+public:
+	distancia()
+	{
+		mt=0;
+		cm=0;
+		mm=0;
+	}
+	void setMt(int m)
+	{
+		mt=m;
+	}
+	void setCm(int c)
+	{
+		cm=c;
+	}
+	void setMm(int mil)
+	{
+		mm=mil;
+	}
+	int getMt()
+	{
+		return mt;
+	}
+	int getCm()
+	{
+		return cm;
+	}
+	int getMm()
+	{
+		return mm;
+	}
+	void leerdistancia()
+	{
+		int m,c,mil;
+		cout<<"Ingrese la distancia :"<<endl;
+		cout<<"METRO: ";
+		cin>>m;    mt=m;
+		cout<<"CENTIMETRO: "<<endl;
+		cin>>c;    cm=c;
+		cout<<"MILIMETRO: "<<endl;
+		cin>>mil;   mm=mil;
+	}
+	void mostrardistancia()
+	{
+		cout<<mt<<" m "<<cm<<" cm "<<mm<<" mm ";
+	}
+	void distanciamayor (distancia D1)
+	{
+		int mt1,cm1,mm1,mt2,cm2,mm2,may,m1,m2;
+		mt1=D1.getMt();
+		cm1=D1.getCm();
+		mm1=D1.getMm();
+		mt2=getMt();
+		cm2=getCm();
+		mm2=getMm();
+
+		m1=(mt1*1000)+(cm1*10)+mm1;
+		m2=(mt2*1000)+(cm2*10)+mm2;
+		if(m1>m2)
+		{
+			cout<<"La distancia mayor es: "<<endl;
+			D1.mostrardistancia();
+		}
+		else
+			cout<<"La distancia mayor es: "<<endl;
+			mostrardistancia();
+	
+	}
+	void aumentardistancia(int n)
+	{
+		int m,c,mil,total;
+		m=getMt();
+		c=getCm();
+		mil=getMm();
+		total=(m*1000)+(c*10)+(mil)+(n);
+		mt=(total)/1000;
+		cm=(total%1000)/10;
+		mm=(total%1000)%10;
+
+		mostrardistancia();
+	}
+};
+	void main()
+	{
+		int n;
+		distancia D1,D2;
+		D1.leerdistancia();
+		cout<<endl;
+		D1.mostrardistancia();
+		cout<<endl;
+		D2.leerdistancia();
+		cout<<endl;
+		D2.mostrardistancia();
+		cout<<endl;
+		D2.distanciamayor(D1);
+		cout<<"Ingrese la cantidad de mm que desea aumentar a la primera distancia: "<<endl;
+		cin>>n;
+		D1.aumentardistancia(n);
+
+		
+		getch();
+	}
