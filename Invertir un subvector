@@ -1,0 +1,63 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+void cargar(int n,int v[])
+{
+	for(int i=0;i<n;i++)
+	{
+		cout<<"Elemento: ";
+		cin>>v[i];
+	}
+}
+void mostrar(int n,int v[])
+{
+	for(int i=0;i<n;i++)
+		cout<<"v["<<i<<"]= "<<v[i]<<endl;
+}
+void invertir (int v[],int i,int k)
+{
+	int n=k-i+1;
+	if(n==1)
+	{
+
+	}
+	else
+	{
+		if(n==2)
+		{
+			int aux=v[i];
+			v[i]=v[k];
+			v[k]=aux;
+
+
+		}
+		else
+		{
+			invertir(v,(i+1),(k-1));
+			int aux=v[i];
+			v[i]=v[k];
+			v[k]=aux;
+		}
+	}
+}
+
+	
+
+void main()
+{
+	int n,v[50],x,s,i,k;
+	cout<<"N: ";
+	cin>>n;
+	cargar(n,v);
+	i=0;
+	k=n-1;
+	invertir(v,i,k);
+	mostrar(n,v);
+
+
+	getch();
+}
