@@ -1,0 +1,144 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+
+class Fraccion 
+
+{
+private:
+	int num;
+	int den;
+public:
+	Fraccion()
+	{
+		num=1;
+		den=1;
+	}
+	void setNum(int n)
+	{
+		num=n;
+	}
+	void setDen(int d)
+	{
+		den=d;
+	}
+	int getNum()
+	{
+		return num;
+	}
+	int getDen()
+	{
+		return den;
+	}
+	void leerfraccion()
+	{
+		int n,d;
+		cout<<"-----Fraccion-----";
+		cout<<"Ingrese el numerador"<<endl;
+		cin>>n;   num=n;
+		cout<<"Ingrese el denominador"<<endl;
+		cin>>d;   den=d;
+	}
+	void mostrarfraccion();
+	void simplificar();
+	void sumarfraccion(Fraccion D,Fraccion D2);
+	void multiplicarfraccion(Fraccion D,Fraccion D2);
+	void dividirfraccion(Fraccion D,Fraccion D2);
+};
+
+void Fraccion::mostrarfraccion()
+{
+	cout<<num<<" / "<<den;
+}
+void Fraccion::simplificar()
+{
+	int i=2;
+	while(i<=num && i<=den)
+	{
+		if(num%i==0 && den%i==0)
+		{
+			num=num/i;
+			den=den/i;
+		}
+		else
+			i++;
+	}
+}
+void Fraccion::sumarfraccion(Fraccion D,Fraccion D2)
+{
+	int n1=D.getNum();
+	int n2=D2.getNum();
+	int d1=D.getDen();
+	int d2=D2.getDen();
+	den=d1*d2;
+	num=((den/d1)*n1)+((den/d2)*n2);
+}
+
+void Fraccion::multiplicarfraccion(Fraccion D,Fraccion D2)
+{
+	num=(D.getNum()*D2.getNum());
+	den=(D.getDen()*D2.getDen());
+}
+void Fraccion::dividirfraccion(Fraccion D,Fraccion D2)
+{
+	num=(D.getNum()*D2.getDen());
+	den=(D.getDen())*D2.getNum();
+}
+
+void main()
+{
+	int opcion;
+	Fraccion D,D2,D3;
+	D.leerfraccion();
+	D.mostrarfraccion();
+	cout<<endl;
+	D2.leerfraccion();
+	D2.mostrarfraccion();
+	cout<<endl;
+	cout<<"-------------MENU------------"<<endl;
+	cout<<"1.-Suma"<<endl;
+	cout<<"2.-Multiplicacion"<<endl;
+	cout<<"3.-Dividir"<<endl;
+	cout<<"4.-Simplificar "<<endl;
+	cout<<"Ingrese la opcion: "<<endl;
+	cin>>opcion;
+	switch(opcion)
+	{
+	case 1:
+		{
+			D3.sumarfraccion(D,D2);
+			D3.simplificar();
+			cout<<endl;
+			D3.mostrarfraccion();
+		}
+	case 2:
+		{
+			D3.multiplicarfraccion(D,D2);
+			D3.simplificar();
+			cout<<endl;
+			D3.mostrarfraccion();
+		}
+	case 3:
+		{
+			D3.dividirfraccion(D,D2);
+			D3.simplificar();
+			cout<<endl;
+			D3.mostrarfraccion();
+		}
+	case 4:
+		{
+			D.simplificar();
+			cout<<endl;
+			D.mostrarfraccion();
+
+		}
+	
+	}
+
+
+	getch();
+}
