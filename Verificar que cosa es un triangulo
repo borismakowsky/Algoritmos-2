@@ -1,0 +1,114 @@
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "math.h"
+
+using namespace std;
+
+class punto
+{
+private:
+	int x;
+	int y;
+public:
+	punto()
+	{
+		float x=0;
+		float y=0;
+	}
+	void setX(float a1)
+	{
+		x=a1;
+	}
+	void setY(float a2)
+	{
+		y=a2;
+	}
+	float getX()
+	{
+		return x;
+	}
+	float getY()
+	{
+		return y;
+	}
+	void leerpunto();
+	void mostrarpunto();
+	float distancia(punto P2);
+};
+
+void punto::leerpunto()
+{
+	float x1,y1;
+	cout<<"Introducir X"<<endl;
+	cin>>x1;
+	setX(x1);
+	cout<<"Introducir Y"<<endl;
+	cin>>y1;
+	setY(y1);
+}
+void punto::mostrarpunto()
+{
+	cout<<"X: "<<x<<"Y: "<<y<<endl;
+}
+float punto::distancia(punto P)
+{
+	float a,b,c,d,f;
+	a=getX();
+	b=getY();
+	c=P.getX();
+	d=P.getY();
+	f=sqrt(powf((c-a),2)+powf((d-b),2));
+	return f;
+
+}
+void verificartriangulo(float d1,float d2,float d3)
+{
+	if(d1==d2 && d2==d3 && d3==d1)
+		cout<<"Es equilatero"<<endl;
+	else
+	{
+		if((d1==d2 && d1!=d3) || (d2==d3 && d2!=d1) || (d3==d1 && d3!=d2))
+			cout<<"Es isoceles"<<endl;
+		else
+		{
+			cout<<"Es escaleno"<<endl;
+		}
+	}
+}
+
+
+
+void main()
+{
+	punto P1,P2,P3;
+	float d1,d2,d3;
+
+	P1.leerpunto();
+	cout<<endl;
+	P1.mostrarpunto();
+	cout<<endl;
+	P2.leerpunto();
+	cout<<endl;
+	P2.mostrarpunto();
+	cout<<endl;
+	P3.leerpunto();
+	cout<<endl;
+	P3.mostrarpunto();
+	cout<<endl;
+
+	d1=P1.distancia(P2);
+	d2=P2.distancia(P3);
+	d3=P3.distancia(P1);
+	cout<<"---DISTANCIAS---"<<endl;
+	cout<<d1<<endl;
+	cout<<d2<<endl;
+	cout<<d3<<endl;
+	cout<<endl;
+	verificartriangulo(d1,d2,d3);
+
+	getch();
+
+
+}
