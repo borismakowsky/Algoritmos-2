@@ -1,0 +1,377 @@
+// conjuntos.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "vector.h"
+
+using namespace std;
+
+class conjunto: public vector
+{
+	//no hay private pq no tiene atributos propios, solo hereda los del vector
+public:
+	void juntar(conjunto A, conjunto B);
+	void copiar(conjunto A);
+	void Union(conjunto A, conjunto B);
+	void interseccion(conjunto A, conjunto B);
+	void Diferencia(conjunto A, conjunto B);
+	void DiferenciaSim(conjunto A, conjunto B);
+	bool subConjunto(conjunto A);
+	bool pertenece(int x); //verifica si el elemento existe en el conjunto 
+	bool iguales(conjunto A);
+};
+
+bool conjunto::pertenece(int x)
+{
+	int i=0;
+	while(i<n)
+	{
+		if(x==v[i])
+			return true;
+		else
+			i++;
+	}
+	return false;
+}
+
+void conjunto::copiar(conjunto A)
+{
+	int i=0;
+	while(i<A.getDim())
+	{
+		insertarUltimo(A.getElem(i));
+		i++;
+	}
+}
+
+void conjunto::juntar(conjunto A, conjunto B)
+{
+	copiar(A);
+	copiar(B);
+}
+
+void conjunto::interseccion(conjunto A, conjunto B)
+{
+	for(int i=0;i<A.getDim();i++)
+	{
+		if(B.pertenece(A.getElem(i)))
+			insertarUltimo(A.getElem(i));
+	}
+}
+
+void conjunto::Union(conjunto A,conjunto B )
+{
+	for(int i=0;i<A.getDim();i++)
+		insertarUltimo(A.getElem(i));
+	for(int i=0;i<B.getDim();i++)
+	{
+		if(!A.pertenece(B.getElem(i)))
+			insertarUltimo(B.getElem(i));
+	}
+}
+bool conjunto::subConjunto (conjunto A)
+{
+	for(int i=0;i<A.getDim();i++)
+	{
+		if(pertenece(A.getElem(i)))
+		{
+		}
+		else
+			return false;
+	}
+	return true;
+
+}
+bool conjunto::iguales (conjunto A)
+{
+	return (subConjunto(A) && A.subConjunto(*this));
+
+}
+void conjunto::Diferencia(conjunto A, conjunto B)
+{
+	for(int i=0;i<A.getDim();i++)
+	{
+		if(B.pertenece(A.getElem(i))==false)
+			insertarUltimo(A.getElem(i));
+	}
+}
+void conjunto::DiferenciaSim(conjunto A, conjunto B)
+{
+	conjunto a,b;
+	a.Diferencia(A,B);
+	b.Diferencia(B,A);
+	Union(a,b);
+}
+
+void main()
+{
+	conjunto A,B,C;
+	cout<<"CONJUNTO A"<<endl;
+	A.leer();
+	A.imprimir();
+	cout<<endl;
+	cout<<"CONJUNTO B"<<endl;
+	B.leer();
+	B.imprimir();
+	cout<<endl;
+	C.DiferenciaSim(A,B);
+	C.imprimir();
+	getch();
+
+}
+
+
+// clase vectores.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+
+typedef int tipoElem; //para poder camiar el tipo de dato del vector
+const int MAX=50;
+
+class vector
+{
+protected:
+
+	tipoElem v[MAX];
+	int n;
+
+public:
+	vector()
+	{
+		n=0;
+	}
+	void setElem(tipoElem x, int p) //el elemento de tipoElem se pone en la pos p
+	{
+		v[p]=x;
+	}
+	tipoElem getElem(int p) //me devuelve el elemento de tipoElem de la pos p
+	{
+		return v[p];
+	}
+	void setDim(int a)
+	{
+		n=a;
+	}
+	int getDim()
+	{
+		return n;
+	}
+	void leer();
+	void imprimir();
+	/*bool vacio()
+	{return n==0;}
+	bool lleno()
+	{return n==MAX;}
+	*/
+	bool vacio()
+	{
+		if(n==0)
+			return true;
+		else
+			return false;
+	}
+	bool lleno()
+	{
+		if(n==50)
+			return true;
+		else
+			return false;
+	}
+	void insertar(tipoElem x, int p);
+	void eliminar(int p);
+	void insertarUltimo(tipoElem x);
+	void insertarPrimero(tipoElem x);
+	void eliminarUltimo();
+	void eliminarPrimero();
+	void eliminarDuplicados();
+	void eliminarNoDuplicados();
+	void intercalar(vector v1, vector v2);
+	void fusionar(vector v1, vector v2);
+
+}; //end class
+
+void vector::leer()
+{
+	int m;
+	cout<<"cantidad de elementos: ";
+	cin>>m;
+	int x;
+	for(int i=0;i<m;i++)
+	{
+		cout<<"v["<<i+1<<"]= ";
+		cin>>x;
+		insertarUltimo(x);
+	}
+}
+void vector::imprimir()
+{
+	int i=0;
+	while(i<getDim())
+	{
+		cout<<getElem(i)<<" ";
+		i++;
+	}
+}
+
+void vector::insertar(tipoElem x, int p)
+{
+	if(p<0||p>n)
+	{
+		cout<<"posicion no valida"<<endl;
+		return ;
+	}
+	if(lleno())
+	{
+		cout<<"vector lleno"<<endl;
+		return ;
+	}
+	int k=n-1;
+	while(k>=p)
+	{
+		v[k+1]=v[k];
+		k--;
+	}
+	v[p]=x;
+	n=n+1;
+}
+
+void vector::eliminar(int p)
+{
+	if(p<0||p>n)
+	{
+		cout<<"posicion no valida"<<endl;
+		return ;
+	}
+	if(vacio())
+	{
+		cout<<"vector vacio"<<endl;
+		return ;
+	}
+	int k=p+1;
+	while(k<n)
+	{
+		v[k-1]=v[k];
+		k++;
+	}
+	n=n-1;
+
+}
+
+void vector::insertarUltimo(tipoElem x)
+{
+	insertar(x,n);
+}
+void vector::insertarPrimero(tipoElem x)
+{
+	insertar(x,0);
+}
+void vector::eliminarUltimo()
+{
+	eliminar(n-1);
+}
+void vector::eliminarPrimero()
+{
+	eliminar(0);
+}
+void vector::eliminarDuplicados()
+{
+	int i=0,j;
+	while(i<n)
+	{
+		j=i+1;
+		while(j<n)
+		{
+			if(v[i]==v[j])
+				eliminar(j);
+			else
+				j++;
+		}
+		i++;
+	}
+}
+
+void vector::eliminarNoDuplicados()
+{
+	int i,band,j;
+	i=0;
+	while(i<n)
+	{
+		j=0;
+		band=0;
+		while(j<n)
+		{
+			if(i!=j && v[i]==v[j])
+			{
+				band=1;
+				j++;
+			}
+			else
+				j++;
+		}
+		if(band==0)
+			eliminar(i);
+		else
+			i++;
+	}
+}
+
+void vector::fusionar(vector v1, vector v2)
+{
+	int i=0;
+	int j=0;
+	while(i<getDim()&&j<v2.getDim())
+	{
+		if(v1.getElem(i)<v2.getElem(j))
+		{
+			insertarUltimo(v1.getElem(i));
+			i++;
+		}
+		else
+		{
+			insertarUltimo(v2.getElem(j));
+			j++;
+		}
+	}
+	while(i<v1.getDim())
+	{
+		insertarUltimo(v1.getElem(i));
+		i++;
+	}
+	while(j<v2.getDim())
+	{
+		insertarUltimo(v2.getElem(j));
+		j++;
+	}
+}
+
+void vector::intercalar(vector v1,vector v2)
+{
+	int i=0;
+	int j=0;
+	while(i<v1.getDim()&&j<v2.getDim())
+	{
+		insertarUltimo(v1.getElem(i));
+		insertarUltimo(v2.getElem(j));
+		i++;
+		j++;
+	}
+	while(i<v1.getDim())
+	{
+		insertarUltimo(v1.getElem(i));
+		i++;
+	}
+	while(j<v2.getDim())
+	{
+		insertarUltimo(v2.getElem(j));
+		j++;
+	}
+}
+
+
