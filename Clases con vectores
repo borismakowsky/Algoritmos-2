@@ -1,0 +1,142 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+
+using namespace std;
+typedef int tipoElem;
+const int MAX=50;
+class vector
+{
+private:
+	tipoElem v[MAX];
+	int n;
+public:
+	vector()
+	{
+		n=0;
+	}
+	void setElem(tipoElem x,int p)
+	{
+		v[p]=x;
+	}
+	tipoElem getElem(int p)
+	{
+		return v[p];
+	}
+	void setDim(int d)
+	{
+		n=d;
+	}
+	int getDim()
+	{
+		return n;
+	}
+	void leer();
+	void imprimir();
+	bool vacio()
+	{return n==0;}
+	bool lleno()
+	{return n==MAX;}
+	void insertar(tipoElem x,int p);
+	void eliminar (int p);
+	void insertarPrimero(tipoElem x)
+	{
+		insertar(x,0);
+	}
+	void insertarUltimo (tipoElem x)
+	{
+		insertar(x,n);
+	}
+	void eliminarPrimero()
+	{
+		eliminar(0);
+	}
+	void eliminarUltimo()
+	{
+		eliminar(n-1);
+	}
+};
+
+void vector::leer()
+{
+	int m,x;
+	cout<<"Cantidad de elementos"<<endl;
+	cin>>m;
+	for(int i=0;i<m;i++)
+	{
+		cout<<"Elem: "<<endl;
+		cin>>x;
+		insertarUltimo(x);
+	}
+
+}
+void vector::imprimir()
+{
+	for (int i=0;i<getDim();i++)
+	{
+		cout<<getElem(i)<<"  ";
+	}
+	cout<<endl;
+}
+
+
+void vector::insertar (tipoElem x,int p)
+{
+	if(p<0 || p>n)
+	{
+		cout<<"Posicion no valida..!!";
+		return;
+	}
+	if(lleno())
+	{
+		cout<<"Vector lleno..!!"<<endl;
+		return;
+	}
+	int k=n-1;
+	while (k>=p)
+	{
+		v[k+1]=v[k];
+		k--;
+	}
+	v[p]=x;
+	n=n+1;
+}
+void vector::eliminar(int p)
+{
+	if(p<0||p>=n)
+	{
+		cout<<"Posicion no valida..."<<endl;
+		return;
+	}
+	if(vacio())
+	{
+		cout<<"Vector vacio..!!"<<endl;
+		return;
+	}
+	int k=p+1;
+	while(k<n)
+	{
+		v[k-1]=v[k];
+		k++;
+	}
+	n=n-1;
+}
+
+void main()
+{
+	int n;
+	tipoElem x,p;;
+	vector V1;
+	V1.leer();
+	cout<<endl;
+	cout<<endl;
+	cout<<"Ingrese el numero que desee insertar"<<endl;
+	cin>>x;
+	cout<<"Ingrese la posicion"<<endl;
+	cin>>p;
+	V1.insertar(x,p);
+	V1.imprimir();
+
+	getch();
+
+}
