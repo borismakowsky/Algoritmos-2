@@ -1,0 +1,105 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+typedef int tipoElem;
+const int MAX=50;
+
+class vector
+{
+private:
+	tipoElem vec[MAX];
+	int n;
+
+public:
+	vector()
+	{
+		n=0;
+	}
+	void setElem(tipoElem x, int p)
+	{	vec[p]=x;	}
+
+	int getElem(int p)
+	{	return vec[p];	}
+
+	void setDim(int d)
+	{	n=d;	}
+
+	int getDim()
+	{	return n;	}
+
+	void cargar();
+	void mostrar();
+	tipoElem moda();
+
+};
+
+void vector::cargar()
+{
+	int m;
+	cout << "Dimension: " ;
+	cin >> m;
+	setDim(m);
+	for (int i=0; i<m; i++)
+	{
+		cout << "vec[" << i+1 << "]: ";
+		cin >> vec[i];
+		setElem(vec[i], i);
+		cout << endl;
+	}
+}
+
+void vector::mostrar()
+{
+	for (int i=0; i<n; i++)
+	{
+		cout << vec[i] << "\t";
+	}
+}
+
+int mayor(int vec[], int n)
+{
+	int i, may=vec[0];
+	for (i=0; i<n; i++)
+	{
+		if (vec[i]>may)
+			may=vec[i];
+	}
+	return may;
+}
+
+tipoElem vector::moda()
+{
+	int i, j, c=0, vec2[MAX], moda, tam=0;
+	for (i=0; i<getDim(); i++){
+		c=0;
+		for (j=0; j<getDim(); j++){
+			if (getElem(i)==getElem(j))
+				c++;
+		}
+		vec2[i]=c;
+		tam++;
+	}
+	moda=mayor(vec2, tam);
+	for (i=0; i<tam; i++){
+		if (vec2[i]==moda && moda!=1 ){
+			return getElem(i);
+		}
+
+	}
+	return 0;
+}
+
+void main()
+{
+	tipoElem moda;
+	vector v1;
+	v1.cargar();
+	v1.mostrar();
+	moda=v1.moda();
+	if (moda!=0)
+	cout << endl<< "La moda es: " << v1.moda();
+	else 
+		cout << endl << "No hay moda ";
+	getch();
+}
