@@ -1,0 +1,168 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 50
+
+using namespace std;
+
+class matriz
+{
+protected:
+	int fil;
+	int col;
+	int M[MAX][MAX];
+public:
+	matriz()
+	{
+		fil=0;
+		col=0;
+	}
+	void setFil(int f)
+	{
+		fil=f;
+	}
+	void setCol(int c)
+	{
+		col=c;
+	}
+	void setMat(int f,int c,int x)
+	{
+		M[f][c]=x;
+	}
+	int getFil()
+	{
+		return fil;
+	}
+	int getCol()
+	{
+		return col;
+	}
+	int getMat(int f,int c)
+	{
+		return M[f][c];
+	}
+	void leerMatriz();
+	void mostrarMatriz();
+};
+
+
+void matriz::leerMatriz()
+{
+
+	int i,j,f,c;
+	cout<<"Ingrese el numero de filas: "<<endl;
+	cin>>f;
+	setFil(f);
+	cout<<endl;
+	cout<<"Ingrese el numero de columnas"<<endl;
+	cin>>c;
+	setCol(c);
+	cout<<endl;
+	for(i=0;i<f;i++)
+	{
+		for(j=0;j<c;j++)
+		{
+			cout<<"M["<<i<<"]["<<j<<"]= ";
+			cin>>M[i][j];
+			setMat(fil,col,M[i][j]);
+		}
+	}
+}
+void matriz::mostrarMatriz()
+{
+	int i,j;
+	for(i=0;i<fil;i++)
+	{
+		for(j=0;j<col;j++)
+		{
+			cout<<M[i][j]<<"\t";
+		}
+		cout<<endl;
+	}
+}
+
+
+/////////////////////////////////////////////////////////////
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "matriz.h"
+#define MAX 50
+
+using namespace std;
+
+class suma : public matriz 
+{
+public:
+	void sumar(suma S1,suma S2);
+	void multiplicar(suma S1,suma S2);
+
+};
+
+void suma::sumar(suma S1,suma S2)
+{
+	int i,j,x;
+	setFil(S1.getFil());
+	setCol(S1.getCol());
+
+	if(S1.getFil()==S2.getCol() && S1.getCol()==S2.getCol())
+	{
+		for(i=0;i<S1.getFil();i++)
+		{
+			for(j=0;j<S1.getCol();j++)
+			{
+				
+				x=S1.getMat(i,j)+S2.getMat(i,j);
+				setMat(i,j,x);
+			}
+		}
+		mostrarMatriz();
+	}
+	else
+	{
+
+		cout<<"No se puede sumar"<<endl;
+
+	}
+}
+
+void suma::multiplicar(suma S1,suma S2)
+{
+	setFil(S1.getFil());
+	setCol(S2.getCol());
+	int x=0,i,j;
+	if(S1.getCol()==S2.getFil())
+	{
+		for(i=0;i<S1.getFil();i++)
+		{
+
+			for(j=0;j<S2.getCol();j++)
+			{
+				for(int k=0;k<S1.getCol();k++)
+				{
+				x=x+(S1.getMat(i,k)*S2.getMat(k,j));
+				setMat(i,j,x);
+				}
+			}
+		}
+		mostrarMatriz();
+	}
+	else
+		cout<<"No se puede multiplicar"<<endl;
+
+}
+
+
+void main()
+{
+	suma S1,S2,S3;
+	S1.leerMatriz();
+	cout<<endl;
+	S2.leerMatriz();
+	cout<<endl;
+	S3.multiplicar(S1,S2);
+
+
+	getch();
+}
