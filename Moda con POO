@@ -1,0 +1,136 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+
+class vector
+{
+protected:
+	int dim;
+	int v[30];
+public:
+	vector()
+	{
+		dim=0;
+	}
+	void setDim(int a)
+	{
+		dim=a;
+	}
+	int getDim()
+	{
+		return dim;
+	}
+	void setV(int x,int p)
+	{
+		v[p]=x;
+	}
+	int getV(int p)
+	{
+		return v[p];
+	}
+	void leerVector();
+	void mostrarVector();
+};
+void vector::leerVector()
+{
+	int x,a;
+	cout<<"Ingrese la dimension del vector: "<<endl;
+	cin>>a;
+	setDim(a);
+	for (int i=0;i<getDim();i++)
+	{
+		cout<<"v["<<i<<"]=";
+		cin>>x;
+		setV(x,i);
+	}
+}
+void vector::mostrarVector()
+{
+	for (int i=0;i<getDim();i++)
+	{
+		cout<<v[i]<<"\t";
+	}
+
+
+}
+
+-----------------------------------------------------------------------------------
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "vector.h"
+
+using namespace std;
+
+class moda
+{
+protected:
+	vector v;
+public:
+	int esModa();
+	int mayor(int v[],int n);
+	void leerModa();
+
+};
+
+void moda::leerModa()
+{
+	v.leerVector();
+	v.mostrarVector();
+}
+int moda::mayor(int v[],int n)
+{
+	int i,may=v[0];
+	for(i=0;i<n;i++)
+	{
+		if(may<v[i])
+			may=v[i];
+		else 
+			may=may;
+	}
+	return may;
+}
+
+int moda::esModa()
+{
+	int i,j,v2[30],c=0,moda,tam=0;
+	for(i=0;i<v.getDim();i++)
+	{
+		c=0;
+		for(j=0;j<v.getDim();j++)
+		{
+			if(v.getV(i)==v.getV(j))
+				c++;
+		}
+		v2[i]=c;
+		tam++;
+	}
+	
+	moda=mayor(v2,tam);
+	for(i=0;i<tam;i++)
+	{
+		if(v2[i]==moda && moda!=1)
+			return v.getV(i);
+		
+	}
+	return 0;
+}
+		
+
+void main()
+{
+	moda M;
+	int x;
+	M.leerModa();
+	x=M.esModa();
+	if(x!=0)
+		cout<<"la moda es: "<<M.esModa();
+	else
+		cout<<"No hay moda"<<endl;
+
+
+	getch();
+}
