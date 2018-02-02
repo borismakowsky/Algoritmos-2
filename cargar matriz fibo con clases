@@ -1,0 +1,111 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 50
+
+using namespace std;
+
+class matriz
+{
+protected:
+	int fil;
+	int col;
+	int M[MAX][MAX];
+public:
+	matriz()
+	{
+		fil=0;
+		col=0;
+	}
+	void setFil(int f)
+	{
+		fil=f;
+	}
+	int getFil()
+	{
+		return fil;
+	}
+	void setCol(int c)
+	{
+		col=c;
+	}
+	int getCol()
+	{
+		return col;
+	}
+	void setMat(int f,int c,int x)
+	{
+		M[f][c]=x;
+	}
+	int getMat(int f,int c)
+	{
+		return M[f][c];
+	}
+	void leerMatriz();
+	void mostrarMatriz();
+	void fibonacci();
+	int fibo (int pos);
+
+};
+void matriz:: leerMatriz()
+{
+	int f,c,m[MAX][MAX];
+	cout<<"Ingrese el numero de filas"<<endl;
+	cin>>f;
+	setFil(f);
+	cout<<"Ingrese el numero de columnas"<<endl;
+	cin>>c;
+	setCol(c);
+}
+void matriz::mostrarMatriz()
+{
+
+	cout<<"---Matriz---"<<endl;
+	for(int i=0;i<getFil();i++)
+	{
+		for(int j=0;j<getCol();j++)
+		{
+			cout<<M[i][j]<<"\t";
+		}
+		cout<<endl;
+	}
+}
+int matriz::fibo(int pos)
+{
+	int a=-1,b=1,c=0;
+	for(int i=0;i<pos;i++)
+	{
+		c=a+b;
+		a=b;
+		b=c;
+	}
+	return c;
+}
+void matriz::fibonacci()
+{
+	int x,pos=0;
+	setFil(getFil());
+	setCol(getCol());
+	for(int i=0;i<getFil();i++)
+	{
+		for(int j=0;j<getCol();j++)
+		{
+			x=fibo(pos);
+			pos++;
+			setMat(i,j,x);
+		}
+	}
+	mostrarMatriz();
+}
+void main()
+{
+	matriz A;
+	A.leerMatriz();
+	cout<<endl;
+	A.fibonacci();
+
+	cout<<endl;
+
+	getch();
+
+}
