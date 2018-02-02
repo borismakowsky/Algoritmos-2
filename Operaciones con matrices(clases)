@@ -1,0 +1,169 @@
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#define MAX 50
+
+using namespace std;
+
+class matriz
+{
+protected:
+	int fil;
+	int col;
+	int M[MAX][MAX];
+public:
+	matriz()
+	{
+		fil=0;
+		col=0;
+	}
+	void setFil(int f)
+	{
+		fil=f;
+	}
+	int getFil()
+	{
+		return fil;
+	}
+	void setCol(int c)
+	{
+		col=c;
+	}
+	int getCol()
+	{
+		return col;
+	}
+	void setMat(int f,int c,int x)
+	{
+		M[f][c]=x;
+	}
+	int getMat(int f,int c)
+	{
+		return M[f][c];
+	}
+	void leerMatriz();
+	void mostrarMatriz();
+	void sumarMatriz(matriz A,matriz B);
+	void transpuesta(matriz A);
+	void multiplicar(matriz A,matriz B);
+};
+void matriz:: leerMatriz()
+{
+	int f,c,m[MAX][MAX];
+	cout<<"Ingrese el numero de filas"<<endl;
+	cin>>f;
+	setFil(f);
+	cout<<"Ingrese el numero de columnas"<<endl;
+	cin>>c;
+	setCol(c);
+	for(int i=0;i<getFil();i++)
+	{
+		for(int j=0;j<getCol();j++)
+		{
+			cout<<"M["<<i<<"]["<<j<<"]= ";
+			cin>>m[i][j];
+			setMat(i,j,m[i][j]);
+		}
+	}
+}
+void matriz:: transpuesta(matriz A)
+{
+	int x;
+	setFil(A.getCol());
+	setCol(A.getFil());
+	for(int i=0;i<A.getCol();i++)
+	{
+		for(int j=0;j<A.getFil();j++)
+		{
+			x=A.getMat(j,i);
+			setMat(i,j,x);
+		}
+	}
+	mostrarMatriz();
+
+}
+void matriz::multiplicar(matriz A,matriz B)
+{
+	int i,j,k,x=0;
+	if(A.getCol()==B.getFil())
+	{
+		setFil(A.getFil());
+		setCol(B.getCol());
+		for(i=0;i<A.getFil();i++)
+		{
+			for(j=0;j<B.getCol();j++)
+			{
+				for(int k=0;k<A.getCol();k++)
+				{
+					x=x+(A.getMat(i,k)*B.getMat(k,j));
+				}
+				setMat(i,j,x);
+				x=0;
+			}
+		}
+		mostrarMatriz();
+	}
+
+}
+
+void matriz::mostrarMatriz()
+{
+
+	cout<<"---Matriz---"<<endl;
+	for(int i=0;i<getFil();i++)
+	{
+		for(int j=0;j<getCol();j++)
+		{
+			cout<<M[i][j]<<"\t";
+		}
+		cout<<endl;
+	}
+}
+void matriz::sumarMatriz(matriz A,matriz B)
+{
+	setFil(A.getFil());
+	setCol(A.getCol());
+	int suma;
+	if(A.getFil()==B.getFil() && A.getCol()==B.getCol())
+	{
+		
+		for(int i=0;i<A.getFil();i++)
+		{
+			for(int j=0;j<A.getCol();j++)
+			{
+				suma=A.getMat(i,j)+B.getMat(i,j);
+				setMat(i,j,suma);
+			}
+		}
+		mostrarMatriz();
+	}
+	else
+		cout<<"No se puede sumar: ";
+}
+
+void main()
+{
+	matriz A,B,C,D,E;
+	A.leerMatriz();
+	cout<<endl;
+	A.mostrarMatriz();
+	cout<<endl;
+	B.leerMatriz();
+	cout<<endl;
+	B.mostrarMatriz();
+	cout<<endl;
+	cout<<"SUMA";
+	cout<<endl;
+	C.sumarMatriz(A,B);
+	cout<<endl;
+	cout<<"--------------------------"<<endl;
+	cout<<endl;
+	D.transpuesta(A);
+	cout<<"--------------------------"<<endl;
+	cout<<endl;
+	E.multiplicar(A,B);
+
+
+
+	getch();
+}
