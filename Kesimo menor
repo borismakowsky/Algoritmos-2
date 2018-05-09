@@ -1,0 +1,93 @@
+#include "stdafx.h"
+#include "iostream"
+#include "conio.h"
+#include "vector.h"
+
+using namespace std;
+
+class metodo : public vector
+{public:
+int moda();
+void concatenar(metodo v1,metodo v2);
+void fusionar(metodo v1,metodo v2);
+int kesimoMenor(int x);
+};
+int posicion (int x,int vec[MAX],int n){
+for(int i=0;i<n;i++){
+if(vec[i]==x)
+return i;
+}
+}
+int mayor(int vec[MAX],int tam){
+int may=0,pos;
+for (int i=0;i<tam;i++){
+if (vec[i]>may)
+may=vec[i];
+}
+pos=posicion(may,vec,tam);
+return pos;
+}
+int metodo::moda(){
+int aux[MAX],c=0,n=0,may;
+for (int i=0;i<getDim();i++){
+for(int j=i+1;j<getDim();j++){
+if (getElem(i)==getElem(j))
+c++;
+}
+aux[i]=c;
+c=0;
+n++;
+}
+may=mayor(aux,n);
+return(getElem(may));
+}
+void ordenar(int vec[MAX],int n){
+int aux;
+for(int i=0;i<n;i++){
+for(int j=i+1;j<n;j++){
+if(vec[i]>vec[j]){
+aux=vec[i];
+vec[i]=vec[j];
+vec[j]=aux;
+}
+}
+}
+}
+void eliminarRepetidos(int vec[MAX],int &n){
+int aux;
+for(int i=0;i<n;i++){
+for(int j=i+1;j<n;j++){ 
+if(vec[i]==vec[j]){ 
+aux=vec[j];
+vec[j]=vec[n-1];
+vec[n-1]=aux;
+n--;
+j--;
+}
+}
+}
+}
+
+void main(){
+metodo v1,v2,v3,v4;
+int m,x,r;
+v1.leer();
+v1.imprimir();
+v2.leer();
+v2.imprimir();
+m=v1.moda();
+cout<<m;
+cout<<endl;
+v3.concatenar(v1,v2);
+v3.imprimir();
+cout<<endl;
+v4.fusionar(v1,v2);
+v4.imprimir();
+cout<<"ingrese que menor quiere"<<endl;
+cin>>x;
+cout<<endl;
+r=v1.kesimoMenor(x);
+cout<<endl;
+cout<<r;
+getch();
+}
